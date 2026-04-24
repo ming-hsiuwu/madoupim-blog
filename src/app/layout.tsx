@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_TC, Noto_Serif_TC } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { SITE } from "@/lib/site";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -50,6 +53,7 @@ export default function RootLayout({
       className={`${inter.variable} ${notoSans.variable} ${notoSerif.variable}`}
     >
       <body className="font-sans antialiased">{children}</body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
