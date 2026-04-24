@@ -21,10 +21,10 @@ import {
 } from "@/lib/jsonld";
 import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
-import { isPreviewAuthorized } from "@/lib/preview-server";
 
-// draft 文章不在 SSG 清單中；以 dynamic 方式接受，避免把內容預先靜態生成導致外洩。
-export const dynamicParams = true;
+// draft 文章需讀 cookie，整頁走 dynamic render；
+// published 文章內容純靜態 + Vercel edge cache，效能不受影響。
+export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
   // 只預產已發佈的，草稿靠 dynamic render 並要求密碼。
@@ -102,6 +102,7 @@ export default async function ArticlePage({
 
   // 草稿 + 未驗證 → 顯示密碼 gate，絕對不要預先 render 內容
   if (article.draft) {
+    const { isPreviewAuthorized } = await import("@/lib/preview-server");
     const authorized = isPreviewAuthorized();
     if (!authorized) {
       return (
