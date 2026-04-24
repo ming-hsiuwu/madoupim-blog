@@ -8,7 +8,7 @@ export const SITE = {
     "PIM 柚一村延伸閱讀站：聚焦麻豆文旦的農事知識、老欉故事、柚皮科學與食農美學，長期陪伴每一位愛吃柚子、關心土地的讀者。",
   descriptionEn:
     "An extended reading site from PIM Pomelo Village — long-form knowledge about Madou pomelo trees, peel science, pomelo processing, and slow food culture.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://blog.madoupim.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://madoupim.ms-wu.com",
   mainSite: "https://madoupim.com",
   locale: {
     zh: "zh-TW",
