@@ -2,7 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { verifyPreviewPassword } from "@/lib/preview";
+import { verifyPreviewPassword } from "@/lib/preview-actions";
 
 export function PasswordGate({
   title,

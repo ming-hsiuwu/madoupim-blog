@@ -21,7 +21,7 @@ import {
 } from "@/lib/jsonld";
 import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
-import { isPreviewAuthorized } from "@/lib/preview";
+import { isPreviewAuthorized } from "@/lib/preview-server";
 
 // draft 文章不在 SSG 清單中；以 dynamic 方式接受，避免把內容預先靜態生成導致外洩。
 export const dynamicParams = true;
@@ -102,7 +102,7 @@ export default async function ArticlePage({
 
   // 草稿 + 未驗證 → 顯示密碼 gate，絕對不要預先 render 內容
   if (article.draft) {
-    const authorized = await isPreviewAuthorized();
+    const authorized = isPreviewAuthorized();
     if (!authorized) {
       return (
         <PasswordGate
