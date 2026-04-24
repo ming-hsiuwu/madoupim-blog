@@ -8,6 +8,7 @@ import { RelatedProducts } from "@/components/RelatedProducts";
 import { ArticleCard, formatDate } from "@/components/ArticleCard";
 import { ArticleCover } from "@/components/ArticleCover";
 import { JsonLd } from "@/components/JsonLd";
+import { PasswordGate } from "@/components/PasswordGate";
 import {
   getArticle,
   getArticlesByLang,
@@ -20,12 +21,14 @@ import {
 } from "@/lib/jsonld";
 import { getDict, isLang, type Lang } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
+import { isPreviewAuthorized } from "@/lib/preview";
+
+// draft 文章不在 SSG 清單中；以 dynamic 方式接受，避免把內容預先靜態生成導致外洩。
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  return [
-    ...getArticlesByLang("zh").map((a) => ({ lang: "zh", slug: a.slug })),
-    ...getArticlesByLang("en").map((a) => ({ lang: "en", slug: a.slug })),
-  ];
+  // 只預產已發佈的，草稿靠 dynamic render 並要求密碼。
+  return getArticlesByLang("zh").map((a) => ({ lang: "zh", slug: a.slug }));
 }
 
 export async function generateMetadata({
@@ -38,6 +41,17 @@ export async function generateMetadata({
   const article = getArticle(lang, params.slug);
   if (!article) return {};
   const url = `${SITE.url}/${lang}/articles/${article.slug}`;
+
+  // 草稿文章：拒絕索引、不暴露 seo title/description
+  if (article.draft) {
+    return {
+      title: "審稿中的文章",
+      description: "此文章尚未公開，需要預覽密碼。",
+      robots: { index: false, follow: false, nocache: true, noarchive: true },
+      alternates: { canonical: url },
+    };
+  }
+
   return {
     title: article.seoTitle,
     description: article.metaDescription,
@@ -85,6 +99,20 @@ export default async function ArticlePage({
   const lang = params.lang as Lang;
   const article = getArticle(lang, params.slug);
   if (!article) notFound();
+
+  // 草稿 + 未驗證 → 顯示密碼 gate，絕對不要預先 render 內容
+  if (article.draft) {
+    const authorized = await isPreviewAuthorized();
+    if (!authorized) {
+      return (
+        <PasswordGate
+          title={article.title}
+          slug={article.slug}
+          redirectTo={`/${lang}/articles/${article.slug}`}
+        />
+      );
+    }
+  }
 
   const Content = await loadContent(lang, params.slug);
   if (!Content) notFound();
