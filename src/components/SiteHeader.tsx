@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 import { getDict, type Lang } from "@/lib/i18n";
 
@@ -9,13 +10,18 @@ export function SiteHeader({ lang }: { lang: Lang }) {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4">
         <Link
           href={`/${lang}`}
-          className="group flex items-baseline gap-2 font-display"
+          className="group flex items-center gap-3"
           aria-label={SITE.name}
         >
-          <span className="text-xl font-semibold tracking-tight text-pomelo-700 group-hover:text-pomelo-600">
-            PIM
-          </span>
-          <span className="text-sm text-muted">柚一村・食農誌</span>
+          <Image
+            src="/brand/logo.png"
+            alt="PIM 柚一村"
+            width={132}
+            height={52}
+            priority
+            className="h-9 w-auto md:h-11"
+          />
+          <span className="hidden text-sm text-muted md:inline">食農誌</span>
         </Link>
         <nav className="hidden items-center gap-6 text-sm md:flex">
           <Link

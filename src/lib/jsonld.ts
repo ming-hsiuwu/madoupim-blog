@@ -19,6 +19,11 @@ export function websiteJsonLd(lang: Lang) {
   };
 }
 
+function absoluteUrl(path: string) {
+  if (/^https?:\/\//i.test(path)) return path;
+  return `${SITE.url}${path.startsWith("/") ? "" : "/"}${path}`;
+}
+
 export function articleJsonLd(lang: Lang, article: Article) {
   const url = `${SITE.url}/${lang}/articles/${article.slug}`;
   return {
@@ -27,7 +32,7 @@ export function articleJsonLd(lang: Lang, article: Article) {
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     headline: article.seoTitle,
     description: article.metaDescription,
-    image: [article.image],
+    image: [absoluteUrl(article.image)],
     datePublished: article.date,
     dateModified: article.updatedDate ?? article.date,
     author: {

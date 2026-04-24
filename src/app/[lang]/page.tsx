@@ -58,18 +58,27 @@ export default function HomePage({ params }: { params: { lang: string } }) {
             </div>
           </div>
           <div className="relative hidden md:block">
-            <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-earth-200 opacity-60 blur-3xl" />
-            <div className="absolute -bottom-6 -left-6 h-32 w-32 rounded-full bg-pomelo-200 opacity-70 blur-3xl" />
-            <figure className="relative overflow-hidden rounded-3xl border border-line bg-pomelo-100 shadow-sm">
-              <div className="relative aspect-[4/5]">
+            <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-earth-200/70 blur-3xl" />
+            <div className="absolute -bottom-6 -left-6 h-40 w-40 rounded-full bg-pomelo-200/80 blur-3xl" />
+            <figure className="relative overflow-hidden rounded-3xl border border-line bg-gradient-to-br from-cream via-pomelo-50 to-earth-100 shadow-sm">
+              <div className="relative flex aspect-[4/5] flex-col items-center justify-center gap-6 p-10 text-center">
                 <Image
-                  src="https://images.unsplash.com/photo-1576673903381-bb6f2f1ddd4d?auto=format&fit=crop&w=1200&q=80"
-                  alt="麻豆文旦果園與飽滿的柚子"
-                  fill
+                  src="/brand/logo.png"
+                  alt="PIM 柚一村"
+                  width={280}
+                  height={110}
                   priority
-                  sizes="(min-width: 768px) 40vw, 100vw"
-                  className="object-cover"
+                  className="h-auto w-[70%] drop-shadow-sm"
                 />
+                <div className="space-y-1">
+                  <p className="font-display text-sm uppercase tracking-[0.35em] text-pomelo-600">
+                    Pomelo In Madou
+                  </p>
+                  <p className="text-sm text-muted">
+                    台南麻豆 · 老欉文旦 · 食農美學
+                  </p>
+                </div>
+                <div className="h-px w-16 bg-pomelo-600/40" />
               </div>
             </figure>
           </div>

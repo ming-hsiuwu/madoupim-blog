@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { SITE } from "@/lib/site";
 import { getDict, type Lang } from "@/lib/i18n";
 
@@ -8,7 +9,14 @@ export function SiteFooter({ lang }: { lang: Lang }) {
     <footer className="mt-24 border-t border-line bg-pomelo-50/60">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
         <div>
-          <h3 className="font-display text-lg font-semibold text-pomelo-800">
+          <Image
+            src="/brand/logo.png"
+            alt="PIM 柚一村"
+            width={120}
+            height={48}
+            className="h-10 w-auto"
+          />
+          <h3 className="mt-5 font-display text-lg font-semibold text-pomelo-800">
             {dict.footer.aboutTitle}
           </h3>
           <p className="mt-3 text-sm leading-7 text-muted">

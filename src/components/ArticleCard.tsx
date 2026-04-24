@@ -1,7 +1,7 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Article } from "@/lib/articles";
 import { getDict, type Lang } from "@/lib/i18n";
+import { ArticleCover } from "./ArticleCover";
 
 export function ArticleCard({
   article,
@@ -24,22 +24,19 @@ export function ArticleCard({
     >
       <Link
         href={href}
-        className="block overflow-hidden rounded-2xl bg-pomelo-100"
+        className="block overflow-hidden rounded-2xl"
       >
         <div
           className={
             feature
-              ? "relative aspect-[4/3] w-full md:aspect-[5/4]"
-              : "relative aspect-[16/10] w-full"
+              ? "relative aspect-[4/3] w-full transition-transform duration-500 group-hover:scale-[1.01] md:aspect-[5/4]"
+              : "relative aspect-[16/10] w-full transition-transform duration-500 group-hover:scale-[1.01]"
           }
         >
-          <Image
-            src={article.image}
-            alt={article.imageAlt}
-            fill
-            sizes={feature ? "(min-width: 768px) 60vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-            priority={feature}
+          <ArticleCover
+            title={article.title}
+            categoryName={article.categoryName}
+            variant={feature ? "hero" : "card"}
           />
         </div>
       </Link>

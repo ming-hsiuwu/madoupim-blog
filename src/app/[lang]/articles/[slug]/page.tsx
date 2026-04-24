@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { Prose } from "@/components/Prose";
 import { Toc } from "@/components/Toc";
 import { Faq } from "@/components/Faq";
 import { RelatedProducts } from "@/components/RelatedProducts";
 import { ArticleCard, formatDate } from "@/components/ArticleCard";
+import { ArticleCover } from "@/components/ArticleCover";
 import { JsonLd } from "@/components/JsonLd";
 import {
   getArticle,
@@ -141,13 +141,10 @@ export default async function ArticlePage({
           </div>
           <div className="relative mx-auto max-w-5xl px-5 pb-10">
             <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border border-line">
-              <Image
-                src={article.image}
-                alt={article.imageAlt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 960px, 100vw"
-                className="object-cover"
+              <ArticleCover
+                title={article.title}
+                categoryName={article.categoryName}
+                variant="hero"
               />
             </div>
           </div>
