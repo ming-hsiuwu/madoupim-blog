@@ -4,3 +4,4 @@
 - [商品線與價格概覽](products.md) — 鮮果、加工品、調味粉、禮盒、聯名商品與價格帶
 - [主站部落格結構與風格](blog_structure.md) — 3 大分類、64 篇現況、命名規律、寫作風格，外站區隔參考
 - [官網 URL 對照表](site_map.md) — 主頁/商品/部落格/帳戶/政策/社群網址，外站做 CTA 與 backlink 用
+- [草稿匯出 Word 校稿流程](draft_export_workflow.md) — `npm run export-drafts` 把所有 draft 轉成 .docx 給品牌主校稿
