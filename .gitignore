@@ -31,6 +31,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# 本地草稿匯出 (給品牌主校稿用，不入版控)
+/drafts-export/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
